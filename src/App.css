@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.task-card:hover{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 7px 7px rgba(0,0,0,0.2);
+}
+
+.task-card{
+  transition: all 0.2s !important;
+  
+}
+
+/* ====== custom fonts ====== */
+
+@font-face {
+  font-family: Rubik;
+  src: url(/public/fonts/Rubik-Black.ttf);
+}
+
+@font-face {
+  font-family: RubikBold;
+  src: url(/public/fonts/Rubik-Bold.ttf);
+}
+
+.main-card{
+  box-shadow: 0px 5px 7px 7px rgba(0,0,0,0.1) !important;
+  border-radius: 5px !important;
+}
