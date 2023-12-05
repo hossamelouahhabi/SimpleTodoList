@@ -38,8 +38,8 @@
 }
 
 .task-card:hover{
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   box-shadow: 0px 7px 7px rgba(0,0,0,0.2);
 }
 
@@ -61,6 +61,6 @@
 }
 
 .main-card{
-  box-shadow: 0px 5px 7px 7px rgba(0,0,0,0.1) !important;
+  box-shadow: 0px 3px 7px 6px rgba(0,0,0,0.3) !important;
   border-radius: 5px !important;
 }

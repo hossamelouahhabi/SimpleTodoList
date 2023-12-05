@@ -1,6 +1,10 @@
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import "./App.css";
 import TodoList from "./components/TodoList";
+import { TasksContext } from "./contexts/TasksContext";
+import { v4 as Id } from "uuid";
+import { useState } from "react";
+
 
 const theme = createTheme({
   typography: {
@@ -8,7 +12,18 @@ const theme = createTheme({
   },
 });
 
+const TasksData = [
+  {
+    id: Id(),
+    title: "Read A Book",
+    details: "reading david goggins book",
+    isCompleted: false,
+  },
+];
+
 function App() {
+  const [tasksData, setTasksData] = useState(TasksData)
+
   return (
     <ThemeProvider theme={theme}>
       <div
@@ -18,10 +33,12 @@ function App() {
           justifyContent: "center",
           height: "100vh",
           alignItems: "center",
-          // backgroundColor: "#e0f2f1",
+          backgroundColor: "#eeee",
         }}
       >
-        <TodoList />
+       <TasksContext.Provider value={{tasksData, setTasksData}}>
+          <TodoList />
+        </TasksContext.Provider> 
       </div>
     </ThemeProvider>
   );
