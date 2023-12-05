@@ -25,7 +25,7 @@ export default function TodoList() {
     const newTaskdata = {
       id: Id(),
       title: inputValue,
-      details: "this is the task details",
+      // details: "this is the task details",  
       isCompleted: false,
     }
 

@@ -10,13 +10,21 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import CheckIcon from "@mui/icons-material/Check";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { TasksContext } from "../contexts/TasksContext";
 
+// Modal
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import {Button} from "@mui/material";
 
 export default function TodoTask({task}) {
 
   const {tasksData, setTasksData} = useContext(TasksContext)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleCheckBtn = () => {
     const newTaskdata = tasksData.map((t) => {
@@ -32,8 +40,50 @@ export default function TodoTask({task}) {
     setTasksData(newTaskdata)
   }
 
+  const handleShowModal = () => {
+    setIsOpen(true)
+  }
+
+  const handleDeleteBtn = () => {
+    const newTaskdata = tasksData.filter((t) => {
+      if(t.id !== task.id){
+        return t;
+      }
+    })
+    setTasksData(newTaskdata)
+    setIsOpen(false)
+  }
+
+  const handleClose = () => {
+    setIsOpen(false)
+  }
+
   return (
     <>
+      {/* //! Show Delete Modal*/}
+        <Dialog
+          open={isOpen}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {" Are You Sure You Want To Delete This Task?"}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              After deleting this task you can't restore it.
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button size="large" variant="outlined" color="error"  onClick={handleDeleteBtn}  autoFocus>
+              Delete Now
+            </Button>
+          </DialogActions>
+        </Dialog>
+      {/* //! Show Delete Modal*/}
+
       <Card className="task-card" sx={{ minWidth: 275, marginTop: 2, bgcolor: "#eceff1" }}>
         <CardContent sx={{padding: 4}}>
 
@@ -41,12 +91,12 @@ export default function TodoTask({task}) {
 
             <Grid item xs={8}>
               {/* //? Task Informations */}
-              <Typography variant="h5" sx={{ textAlign: "left" }}>
+              <Typography variant="h5" sx={{ textAlign: "left" , marginTop: 0.5}}>
                 {task.title}
               </Typography>
-              <Typography variant="h6" sx={{ textAlign: "left" }}>
+              {/* <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {task.details}
-              </Typography>
+              </Typography> */}
               {/* //? Task Informations */}
 
             </Grid>
@@ -86,6 +136,7 @@ export default function TodoTask({task}) {
               </IconButton>
 
               <IconButton
+                onClick={handleShowModal}
                 aria-label="delete"
                 sx={{
                   backgroundColor: "white",
