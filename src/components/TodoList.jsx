@@ -25,7 +25,7 @@ export default function TodoList() {
     const newTaskdata = {
       id: Id(),
       title: inputValue,
-      // details: "this is the task details",  
+      details: "",  
       isCompleted: false,
     }
 
@@ -67,11 +67,11 @@ export default function TodoList() {
               UnDone
             </ToggleButton>
           </ToggleButtonGroup>
-          {/* //? Filter Buttons*/}
+          {/* //?======Filter Buttons======*/}
 
           {/* //! TodoTask component */}
           {todoTask}
-          {/* //! TodoTask component */}
+          {/* //!======TodoTask component======*/}
 
           {/*// ? Input And Add Button */}
           <Grid container sx={{ marginTop: "30px" }}>
@@ -110,7 +110,7 @@ export default function TodoList() {
               </Button>
             </Grid>
           </Grid>
-          {/*// ? Input And Add Button */}
+          {/*//?======Input And Add Button======*/}
         </CardContent>
       </Card>
     </Container>

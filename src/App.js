@@ -16,7 +16,7 @@ const TasksData = [
   {
     id: Id(),
     title: "Read A Book",
-    // details: "reading david goggins book",
+    details: "reading david goggins book",
     isCompleted: false,
   },
 ];
