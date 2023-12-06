@@ -149,7 +149,7 @@ export default function TodoTask({ task }) {
             label="Task Title"
             fullWidth
             variant="standard"
-            color="success"
+            color="secondary"
           />
           <TextField
             autoFocus
@@ -162,16 +162,16 @@ export default function TodoTask({ task }) {
             label="Add/Edit Task Details"
             fullWidth
             variant="standard"
-            color="success"
+            color="secondary"
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleEditModalClose}>Cancel</Button>
+          <Button color="secondary" onClick={handleEditModalClose}>Cancel</Button>
           <Button
             onClick={handlleEditbtn}
             size="large"
             variant="outlined"
-            color="success"
+            color="primary"
           >
             Edit
           </Button>
@@ -181,7 +181,7 @@ export default function TodoTask({ task }) {
 
       <Card
         className="task-card"
-        sx={{ minWidth: 275, marginTop: 2, bgcolor: "#eceff1" }}
+        sx={{ minWidth: 275, marginTop: 2, bgcolor: "#fff3e0" }}
       >
         <CardContent sx={{ padding: 2 }}>
           <Grid container spacing={2}>
@@ -212,9 +212,9 @@ export default function TodoTask({ task }) {
                 onClick={handleCheckBtn}
                 aria-label="check"
                 sx={{
-                  backgroundColor: task.isCompleted ? "#c8e6c9" : "white",
+                  backgroundColor: task.isCompleted ? "#c8e6c9" : "#eeee",
                   // color: "#8bc34a",
-                  color: task.isCompleted ? "white" : "#8bc34a",
+                  color: task.isCompleted ? "#eeee" : "#8bc34a",
                   border: "solid #8bc34a 2px",
                 }}
               >
@@ -225,7 +225,7 @@ export default function TodoTask({ task }) {
                 onClick={handleShowEditModal}
                 aria-label="edit"
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "#eeee",
                   color: "#2962ff",
                   border: "solid #2962ff 2px",
                 }}
@@ -237,7 +237,7 @@ export default function TodoTask({ task }) {
                 onClick={handleShowDeleteModal}
                 aria-label="delete"
                 sx={{
-                  backgroundColor: "white",
+                  backgroundColor: "#eeee",
                   color: "#b71c1c",
                   border: "solid #b71c1c 2px",
                 }}

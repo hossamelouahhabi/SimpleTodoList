@@ -10,19 +10,19 @@ const theme = createTheme({
   typography: {
     fontFamily: "RubikBold",
   },
+  palette: {
+    primary: {
+      main: "#ff9100"
+    },
+    secondary: {
+      main: "#ffb74d"
+    }
+  }
 });
 
-const TasksData = [
-  {
-    id: Id(),
-    title: "Read A Book",
-    details: "reading david goggins book",
-    isCompleted: false,
-  },
-];
 
 function App() {
-  const [tasksData, setTasksData] = useState(TasksData)
+  const [tasksData, setTasksData] = useState([])
 
   return (
     <ThemeProvider theme={theme}>

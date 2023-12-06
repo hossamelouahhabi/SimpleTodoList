@@ -4,77 +4,83 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {Divider, Grid, TextField, ToggleButton,} from "@mui/material";
+import { Divider, Grid, TextField, ToggleButton } from "@mui/material";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import { v4 as Id } from "uuid";
 
-
 import TodoTask from "./TodoTask";
-import { useState, useContext, useEffect} from "react";
+import { useState, useContext, useEffect } from "react";
 import { TasksContext } from "../contexts/TasksContext";
 
-
 export default function TodoList() {
-
-  const {tasksData, setTasksData} = useContext(TasksContext)
+  const { tasksData, setTasksData } = useContext(TasksContext);
   const [inputValue, setInputValue] = useState("");
-  const [displayTasksType, setDisplayTasksType] = useState("All")
+  const [displayTasksType, setDisplayTasksType] = useState("All");
 
   useEffect(() => {
-    const storageTasks = JSON.parse(localStorage.getItem("tasksData"))
-    setTasksData(storageTasks)
-  }, [])
+    const storageTasks = JSON.parse(localStorage.getItem("tasksData"));
+    setTasksData(storageTasks);
+  }, []);
 
   const handleAddTaskBtn = () => {
     const newTaskdata = {
       id: Id(),
       title: inputValue,
-      details: "",  
+      details: "",
       isCompleted: false,
+    };
+
+    if (inputValue !== "") {
+      setTasksData([...tasksData, newTaskdata]);
     }
 
-    if(inputValue !== ""){
-      setTasksData([...tasksData, newTaskdata])
-    }
+    localStorage.setItem(
+      "tasksData",
+      JSON.stringify([...tasksData, newTaskdata])
+    );
 
-    localStorage.setItem("tasksData", JSON.stringify([...tasksData, newTaskdata]))
-
-    setInputValue("")
-  }
+    setInputValue("");
+  };
 
   //! Tasks filteration //
-  
-  const completedTasks = tasksData.filter((t) => {
-    return t.isCompleted
-  })
-  
-  const notCompletedTasks = tasksData.filter((t) => {
-    return !t.isCompleted
-  })
 
-  let tasksToBeRenderd = tasksData
-  
-  if(displayTasksType == "Completed"){
-    tasksToBeRenderd = completedTasks
-  }else if(displayTasksType == "Not Completed"){
-    tasksToBeRenderd = notCompletedTasks
+  const completedTasks = tasksData.filter((t) => {
+    return t.isCompleted;
+  });
+
+  const notCompletedTasks = tasksData.filter((t) => {
+    return !t.isCompleted;
+  });
+
+  let tasksToBeRenderd = tasksData;
+
+  if (displayTasksType == "Completed") {
+    tasksToBeRenderd = completedTasks;
+  } else if (displayTasksType == "Not Completed") {
+    tasksToBeRenderd = notCompletedTasks;
   }
-  
+
   const todoTask = tasksToBeRenderd.map((task) => {
     return <TodoTask key={task.id} task={task} />;
   });
-  
+
   //!=====Tasks filteration======//
 
-
   const changeDisplayType = (e) => {
-    setDisplayTasksType(e.target.value)
-  }
-  
+    setDisplayTasksType(e.target.value);
+  };
 
   return (
     <Container maxWidth="sm">
-      <Card className="main-card" sx={{ minWidth: 275, minHeight: "90vh" }}>
+      <Card
+        className="main-card"
+        sx={{
+          minWidth: 275,
+          minHeight: "90vh",
+          maxHeight: "90vh",
+          overflow: "auto",
+        }}
+      >
         <CardContent>
           <Typography sx={{ mb: 1 }} variant="h2" component="div">
             Todo List
@@ -89,6 +95,7 @@ export default function TodoList() {
             exclusive
             onChange={changeDisplayType}
             aria-label="text alignment"
+            color="primary"
           >
             <ToggleButton value="All" aria-label="left aligned">
               All
@@ -134,6 +141,7 @@ export default function TodoList() {
                 variant="contained"
                 size="lg"
                 onClick={handleAddTaskBtn}
+                disabled={inputValue == 0}
               >
                 Add Task
               </Button>
@@ -144,7 +152,6 @@ export default function TodoList() {
           {/* //! TodoTask component */}
           {todoTask}
           {/* //!======TodoTask component======*/}
-
         </CardContent>
       </Card>
     </Container>
