@@ -45,6 +45,8 @@ export default function TodoTask({ task }) {
       return t;
     });
     setTasksData(newTaskdata);
+
+    localStorage.setItem("tasksData", JSON.stringify(newTaskdata))
   };
 
   // * Delete Button Events //
@@ -62,6 +64,8 @@ export default function TodoTask({ task }) {
     });
     setTasksData(newTaskdata);
     setShowDeleteModal(false);
+
+    localStorage.setItem("tasksData", JSON.stringify(newTaskdata))
   };
   //!==================================================================
 
@@ -88,6 +92,8 @@ export default function TodoTask({ task }) {
     });
     setTasksData(editTasks);
     setShowEditModal(false);
+
+    localStorage.setItem("tasksData", JSON.stringify(editTasks))
   };
   //!==================================================================
 
@@ -177,7 +183,7 @@ export default function TodoTask({ task }) {
         className="task-card"
         sx={{ minWidth: 275, marginTop: 2, bgcolor: "#eceff1" }}
       >
-        <CardContent sx={{ padding: 4 }}>
+        <CardContent sx={{ padding: 2 }}>
           <Grid container spacing={2}>
             <Grid item xs={8}>
               {/* //? Task Informations */}

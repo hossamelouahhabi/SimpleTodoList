@@ -10,8 +10,7 @@ import { v4 as Id } from "uuid";
 
 
 import TodoTask from "./TodoTask";
-import { useState } from "react";
-import { useContext } from "react";
+import { useState, useContext, useEffect} from "react";
 import { TasksContext } from "../contexts/TasksContext";
 
 
@@ -20,6 +19,10 @@ export default function TodoList() {
   const {tasksData, setTasksData} = useContext(TasksContext)
   const [inputValue, setInputValue] = useState("");
 
+  useEffect(() => {
+    const storageTasks = JSON.parse(localStorage.getItem("tasksData"))
+    setTasksData(storageTasks)
+  }, [])
 
   const handleAddTaskBtn = () => {
     const newTaskdata = {
@@ -32,6 +35,9 @@ export default function TodoList() {
     if(inputValue !== ""){
       setTasksData([...tasksData, newTaskdata])
     }
+
+    localStorage.setItem("tasksData", JSON.stringify([...tasksData, newTaskdata]))
+
     setInputValue("")
   }
 
@@ -41,7 +47,7 @@ export default function TodoList() {
 
   return (
     <Container maxWidth="sm">
-      <Card className="main-card" sx={{ minWidth: 275 }}>
+      <Card className="main-card" sx={{ minWidth: 275, minHeight: "90vh" }}>
         <CardContent>
           <Typography sx={{ mb: 1 }} variant="h2" component="div">
             Todo List
@@ -69,12 +75,8 @@ export default function TodoList() {
           </ToggleButtonGroup>
           {/* //?======Filter Buttons======*/}
 
-          {/* //! TodoTask component */}
-          {todoTask}
-          {/* //!======TodoTask component======*/}
-
           {/*// ? Input And Add Button */}
-          <Grid container sx={{ marginTop: "30px" }}>
+          <Grid container sx={{ marginTop: "20px", marginBottom: "20px" }}>
             <Grid
               item
               xs={8}
@@ -111,6 +113,11 @@ export default function TodoList() {
             </Grid>
           </Grid>
           {/*//?======Input And Add Button======*/}
+
+          {/* //! TodoTask component */}
+          {todoTask}
+          {/* //!======TodoTask component======*/}
+
         </CardContent>
       </Card>
     </Container>
