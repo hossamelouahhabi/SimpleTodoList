@@ -18,6 +18,7 @@ export default function TodoList() {
 
   const {tasksData, setTasksData} = useContext(TasksContext)
   const [inputValue, setInputValue] = useState("");
+  const [displayTasksType, setDisplayTasksType] = useState("All")
 
   useEffect(() => {
     const storageTasks = JSON.parse(localStorage.getItem("tasksData"))
@@ -41,9 +42,35 @@ export default function TodoList() {
     setInputValue("")
   }
 
-  const todoTask = tasksData.map((task) => {
+  //! Tasks filteration //
+  
+  const completedTasks = tasksData.filter((t) => {
+    return t.isCompleted
+  })
+  
+  const notCompletedTasks = tasksData.filter((t) => {
+    return !t.isCompleted
+  })
+
+  let tasksToBeRenderd = tasksData
+  
+  if(displayTasksType == "Completed"){
+    tasksToBeRenderd = completedTasks
+  }else if(displayTasksType == "Not Completed"){
+    tasksToBeRenderd = notCompletedTasks
+  }
+  
+  const todoTask = tasksToBeRenderd.map((task) => {
     return <TodoTask key={task.id} task={task} />;
   });
+  
+  //!=====Tasks filteration======//
+
+
+  const changeDisplayType = (e) => {
+    setDisplayTasksType(e.target.value)
+  }
+  
 
   return (
     <Container maxWidth="sm">
@@ -57,20 +84,20 @@ export default function TodoList() {
 
           {/* //? Filter Buttons*/}
           <ToggleButtonGroup
-            // value={alignment}
+            value={displayTasksType}
             sx={{ marginTop: 4, marginBottom: 2 }}
             exclusive
-            // onChange={handleAlignment}
+            onChange={changeDisplayType}
             aria-label="text alignment"
           >
-            <ToggleButton value="left" aria-label="left aligned">
+            <ToggleButton value="All" aria-label="left aligned">
               All
             </ToggleButton>
-            <ToggleButton value="center" aria-label="centered">
-              Done
+            <ToggleButton value="Completed" aria-label="centered">
+              Completed
             </ToggleButton>
-            <ToggleButton value="right" aria-label="right aligned">
-              UnDone
+            <ToggleButton value="Not Completed" aria-label="right aligned">
+              Not Completed
             </ToggleButton>
           </ToggleButtonGroup>
           {/* //?======Filter Buttons======*/}
